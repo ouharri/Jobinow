@@ -3,9 +3,11 @@ package com.ouharri.Jobinow.model.entities;
 import com.ouharri.Jobinow.model.enums.OffreStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -62,10 +64,9 @@ public class Offre extends AbstractEntity {
     /**
      * The status of the job offer.
      */
-    @NotNull(message = "Job status cannot be null")
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
-    private OffreStatus status;
+    private OffreStatus status = OffreStatus.PENDING;
 
     /**
      * The list of profils associated with the job offer.
@@ -85,7 +86,7 @@ public class Offre extends AbstractEntity {
      */
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "recruiter_id", referencedColumnName = "id")
-    @NotNull(message = "recruiter cannot be null")
+//    @NotNull(message = "recruiter cannot be null")
     private User recruiter;
 
     /**

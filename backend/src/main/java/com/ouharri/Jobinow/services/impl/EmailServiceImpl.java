@@ -12,6 +12,8 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Service implementation for sending emails using Spring's JavaMailSender.
@@ -23,6 +25,7 @@ public class EmailServiceImpl implements EmailService {
 
     private final JavaMailSender emailSender;
     private static final String FROM_ADDRESS = "noreply@jobinow.com";
+    private final ExecutorService executorService = Executors.newFixedThreadPool(10);
 
     /**
      * Sends a simple email message.
@@ -63,5 +66,16 @@ public class EmailServiceImpl implements EmailService {
         helper.addAttachment("Invoice", file);
 
         emailSender.send(message);
+    }
+
+    /**
+     * Sends a simple email message asynchronously.
+     *
+     * @param to      The recipient's email address.
+     * @param subject The subject of the email.
+     * @param text    The content of the email.
+     */
+    public void sendSimpleMessageAsync(String to, String subject, String text) {
+        executorService.submit(() -> sendSimpleMessage(to, subject, text));
     }
 }
