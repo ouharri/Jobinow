@@ -38,7 +38,7 @@ public class Apply extends AbstractEntity {
      */
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Offre offre;
+    private Offer Offer;
 
     /**
      * The set of resume attachments (PDFs) associated with the application.

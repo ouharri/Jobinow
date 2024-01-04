@@ -39,5 +39,5 @@ public class Tag extends AbstractEntity {
      * The list of job offers associated with the tag.
      */
     @ManyToMany
-    private List<Offre> offres = new ArrayList<>();
+    private List<Offer> Offers = new ArrayList<>();
 }

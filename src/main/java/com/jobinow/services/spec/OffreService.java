@@ -1,9 +1,9 @@
 package com.jobinow.services.spec;
 
-import com.jobinow.model.dto.requests.OffreRequest;
-import com.jobinow.model.dto.responses.OffreResponse;
+import com.jobinow.model.dto.requests.OfferRequest;
+import com.jobinow.model.dto.responses.OfferResponse;
 
 import java.util.UUID;
 
-public interface OffreService extends _Service<UUID, OffreRequest, OffreResponse> {
+public interface OfferService extends _Service<UUID, OfferRequest, OfferResponse> {
 }

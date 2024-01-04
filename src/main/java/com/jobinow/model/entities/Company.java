@@ -87,7 +87,7 @@ public class Company extends AbstractEntity {
     @OneToMany(
             mappedBy = "company"
     )
-    private List<Offre> offres;
+    private List<Offer> Offers;
 
     @OneToMany
     private Set<Attachment> resumePdfs;

@@ -1,8 +1,8 @@
 package com.jobinow.model.dto.responses;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.jobinow.model.entities.Offre;
-import com.jobinow.model.enums.OffreStatus;
+import com.jobinow.model.entities.Offer;
+import com.jobinow.model.enums.OfferStatus;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 import java.util.List;
 
 /**
- * DTO for representing a response related to {@link Offre}.
+ * DTO for representing a response related to {@link Offer}.
  * This DTO includes information such as the job title, description, location, degree, salary, status,
  * associated profiles, associated company, associated tags, and common response fields.
  *
@@ -27,7 +27,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class OffreResponse extends AbstractResponse {
+public class OfferResponse extends AbstractResponse {
     @NotBlank(message = "Job title cannot be blank")
     String title;
 
@@ -44,7 +44,7 @@ public class OffreResponse extends AbstractResponse {
     Double salary;
 
     @NotNull(message = "Job status cannot be null")
-    OffreStatus status;
+    OfferStatus status;
 
     List<ProfilResponse> profils;
 

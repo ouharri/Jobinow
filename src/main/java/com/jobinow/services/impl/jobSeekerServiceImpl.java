@@ -1,25 +1,33 @@
 package com.jobinow.services.impl;
 
-import com.jobinow.model.entities.Apply;
-import com.jobinow.model.entities.Company;
-import com.jobinow.model.entities.Offre;
-import com.jobinow.model.entities.Profil;
+import com.jobinow.exceptions.ResourceNotFoundException;
+import com.jobinow.model.dto.requests.OfferRequest;
+import com.jobinow.model.dto.responses.OfferResponse;
+import com.jobinow.model.entities.*;
+import com.jobinow.model.mapper.OfferMapper;
+import com.jobinow.repositories.OfferRepository;
 import com.jobinow.services.spec.JobSeekerService;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Implementation of the {@link JobSeekerService} interface for job seeker-related operations.
  */
-public class jobSeekerServiceImpl implements JobSeekerService{
+
+@RequiredArgsConstructor
+public class jobSeekerServiceImpl extends _ServiceImp<UUID, OfferRequest, OfferResponse, Offer, OfferRepository, OfferMapper> implements JobSeekerService{
+    private final OfferRepository OfferRepository;
+
     /**
      * Apply to a job by submitting an application for a specific job offer.
      *
-     * @param offre The job offer to apply to.
+     * @param Offer The job offer to apply to.
      * @return The application object representing the submitted application.
      */
     @Override
-    public Apply applyToJob(Offre offre) {
+    public Apply applyToJob(Offer Offer) {
         return null;
     }
 
@@ -29,8 +37,10 @@ public class jobSeekerServiceImpl implements JobSeekerService{
      * @return A list of job offers for which the job seeker has submitted applications.
      */
     @Override
-    public List<Offre> getAppliedJobs() {
-        return null;
+    public List<Offer> getAppliedJobs(User jobSeeker) {
+        List<Offer> appliedJobs = OfferRepository.findJobSeekerAppliedToOffers(jobSeeker.getId());
+        if (appliedJobs.isEmpty()) throw new ResourceNotFoundException("Job Seeker haven't applied to any offers with id " + jobSeeker.getId());
+        return appliedJobs;
     }
 
     /**
@@ -39,7 +49,7 @@ public class jobSeekerServiceImpl implements JobSeekerService{
      * @return A list of saved job offers.
      */
     @Override
-    public List<Offre> getSavedJobs() {
+    public List<Offer> getSavedJobs() {
         return null;
     }
 
@@ -49,7 +59,7 @@ public class jobSeekerServiceImpl implements JobSeekerService{
      * @return A list of recommended job offers.
      */
     @Override
-    public List<Offre> getRecommendedJobs() {
+    public List<Offer> getRecommendedJobs() {
         return null;
     }
 
@@ -60,7 +70,7 @@ public class jobSeekerServiceImpl implements JobSeekerService{
      * @return A list of job offers that to match the job seeker's profile.
      */
     @Override
-    public List<Offre> getJobsByProfile(Profil profil) {
+    public List<Offer> getJobsByProfile(Profil profil) {
         return null;
     }
 
@@ -71,7 +81,7 @@ public class jobSeekerServiceImpl implements JobSeekerService{
      * @return A list of job offers available in the specified location.
      */
     @Override
-    public List<Offre> getJobsByLocation(String location) {
+    public List<Offer> getJobsByLocation(String location) {
         return null;
     }
 
@@ -82,7 +92,7 @@ public class jobSeekerServiceImpl implements JobSeekerService{
      * @return A list of job offers within the specified salary range.
      */
     @Override
-    public List<Offre> getJobsBySalary(double salary) {
+    public List<Offer> getJobsBySalary(double salary) {
         return null;
     }
 
@@ -93,7 +103,7 @@ public class jobSeekerServiceImpl implements JobSeekerService{
      * @return A list of job offers with the specified job title.
      */
     @Override
-    public List<Offre> getJobsByTitle(String title) {
+    public List<Offer> getJobsByTitle(String title) {
         return null;
     }
 
@@ -104,7 +114,7 @@ public class jobSeekerServiceImpl implements JobSeekerService{
      * @return A list of job offers associated with the specified company.
      */
     @Override
-    public List<Offre> getJobsByCompany(Company company) {
+    public List<Offer> getJobsByCompany(Company company) {
         return null;
     }
 }

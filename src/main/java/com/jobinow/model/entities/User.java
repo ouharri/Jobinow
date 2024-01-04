@@ -120,7 +120,7 @@ public class User extends AbstractEntity implements UserDetails {
      * Job offer where the user is a recruiter.
      */
     @OneToOne(mappedBy = "recruiter")
-    private Offre offre;
+    private Offer Offer;
 
     /**
      * Return the authorities granted to the user.
