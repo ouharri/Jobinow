@@ -1,6 +1,7 @@
 package com.jobinow.services.impl;
 
 import com.jobinow.model.entities.User;
+import com.jobinow.model.enums.UserStatus;
 import com.jobinow.services.spec.UserService;
 import com.jobinow.model.dto.requests.ChangePasswordRequest;
 import com.jobinow.repositories.UserRepository;
@@ -80,5 +81,25 @@ public class UserServiceImp implements UserService {
         user.setPassword(passwordEncoder.encode(request.newPassword()));
 
         repository.save(user);
+    }
+
+    /**
+     * Updates the status of the specified user to offline.
+     *
+     * @param user The user to update.
+     */
+    public void disconnect(User user) {
+        var storedUser = repository.findById(user.getId()).orElse(null);
+        if (storedUser != null) {
+            storedUser.setStatus(UserStatus.OFFLINE);
+            repository.save(storedUser);
+        }
+    }
+
+    /**
+     * find all connected users.
+     */
+    public List<User> findConnectedUsers() {
+        return repository.findAllByStatus(UserStatus.ONLINE);
     }
 }
