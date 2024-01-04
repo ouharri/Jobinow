@@ -2,6 +2,7 @@ package com.jobinow.model.entities;
 
 import com.jobinow.model.enums.Gender;
 import com.jobinow.model.enums.Role;
+import com.jobinow.model.enums.UserStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -10,6 +11,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import org.springframework.integration.annotation.Default;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -78,7 +80,14 @@ public class User extends AbstractEntity implements UserDetails {
      */
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
-    private Gender gender;
+    private Gender gender = Gender.MALE;
+
+    /**
+     * The user authentication status.
+     */
+    @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    private UserStatus status = UserStatus.OFFLINE;
 
     /**
      * The user's address.
