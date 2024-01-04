@@ -94,7 +94,6 @@ public class User extends AbstractEntity implements UserDetails {
     private Role role;
 
 
-
     /**
      * The list of tokens associated with the user.
      */
