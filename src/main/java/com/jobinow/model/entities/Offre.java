@@ -3,6 +3,7 @@ package com.jobinow.model.entities;
 import com.jobinow.model.enums.OffreStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -86,7 +87,7 @@ public class Offre extends AbstractEntity {
      */
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "recruiter_id", referencedColumnName = "id")
-//    @NotNull(message = "recruiter cannot be null")
+    @NotNull(message = "recruiter cannot be null")
     private User recruiter;
 
     /**
