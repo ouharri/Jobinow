@@ -11,26 +11,26 @@ import org.springframework.security.oauth2.core.endpoint.OAuth2AuthorizationRequ
 public interface OauthService {
 
     /**
-     * Initialise l'autorisation OAuth2 pour un fournisseur donné.
+     * Initializes the OAuth2 authorization request for a given provider.
      *
-     * @param clientRegistration Le fournisseur OAuth2 à initialiser.
-     * @return La requête d'autorisation OAuth2.
+     * @param clientRegistration The OAuth2 provider to initialize.
+     * @return The OAuth2 authorization request.
      */
     OAuth2AuthorizationRequest initAuthorizationRequest(ClientRegistration clientRegistration);
 
     /**
-     * Récupère le client OAuth2 autorisé pour un fournisseur donné.
+     * Retrieves the authorized OAuth2 client for a given provider.
      *
-     * @param clientRegistration Le fournisseur OAuth2 pour lequel récupérer le client autorisé.
-     * @return Le client OAuth2 autorisé.
+     * @param clientRegistration The OAuth2 provider for which to retrieve the authorized client.
+     * @return The authorized OAuth2 client.
      */
     OAuth2AuthorizedClient getAuthorizedClient(ClientRegistration clientRegistration);
 
     /**
-     * Récupère l'utilisateur authentifié à partir des informations d'autorisation OAuth2.
+     * Retrieves the authenticated user from OAuth2 authorization information.
      *
-     * @param authorizedClient Les informations d'autorisation OAuth2.
-     * @return L'utilisateur authentifié.
+     * @param authorizedClient The OAuth2 authorization information.
+     * @return The authenticated user.
      */
     User getUserFromAuthorizedClient(OAuth2AuthorizedClient authorizedClient);
 
