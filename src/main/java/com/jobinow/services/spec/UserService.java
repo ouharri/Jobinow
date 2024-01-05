@@ -1,10 +1,12 @@
 package com.jobinow.services.spec;
 
 import com.jobinow.model.dto.requests.ChangePasswordRequest;
+import com.jobinow.model.dto.responses.UserResponses;
 import com.jobinow.model.entities.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -24,15 +26,35 @@ public interface UserService {
     /**
      * Retrieves a list of all users.
      *
-     * @return A list of all users.
+     * @param pageable The pagination information.
+     * @return A paginated list of all users.
      */
-    List<User> getAllUsers();
+    Page<UserResponses> getAllUsers(Pageable pageable);
 
-    List<User> getAllManager();
+    /**
+     * Retrieves a paginated list of all managers.
+     *
+     * @param pageable The pagination information.
+     * @return A paginated list of all managers.
+     */
+    Page<UserResponses> getAllManager(Pageable pageable);
 
-    List<User> getAllAgent();
+    /**
+     * Retrieves a paginated list of all agents.
+     *
+     * @param pageable The pagination information.
+     * @return A paginated list of all agents.
+     */
+    Page<UserResponses> getAllAgent(Pageable pageable);
 
-    List<User> getAllJobSeeker();
+    /**
+     * Retrieves a paginated list of all jobseekers.
+     *
+     * @param pageable The pagination information.
+     * @return A paginated list of all jobseekers.
+     */
+    Page<UserResponses> getAllJobSeeker(Pageable pageable);
+
     /**
      * Changes the password for the user identified by the connected user principal.
      *
