@@ -55,6 +55,39 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.register(request));
     }
 
+    @PostMapping("/register/job-seeker")
+    public ResponseEntity<AuthenticationResponse> registerJobSeeker(
+            @Valid @RequestBody final RegisterRequest request,
+            BindingResult bindingResult
+    ) {
+        if (bindingResult.hasErrors())
+            throw new ResourceNotCreatedException(bindingResult);
+
+        return ResponseEntity.ok(service.registerJobSeeker(request));
+    }
+
+    @PostMapping("/register/manager")
+    public ResponseEntity<AuthenticationResponse> registerManger(
+            @Valid @RequestBody final RegisterRequest request,
+            BindingResult bindingResult
+    ) {
+        if (bindingResult.hasErrors())
+            throw new ResourceNotCreatedException(bindingResult);
+
+        return ResponseEntity.ok(service.registerManager(request));
+    }
+
+    @PostMapping("/register/agent")
+    public ResponseEntity<AuthenticationResponse> registerAgent(
+            @Valid @RequestBody final RegisterRequest request,
+            BindingResult bindingResult
+    ) {
+        if (bindingResult.hasErrors())
+            throw new ResourceNotCreatedException(bindingResult);
+
+        return ResponseEntity.ok(service.registerAgent(request));
+    }
+
     /**
      * Endpoint for user authentication.
      *

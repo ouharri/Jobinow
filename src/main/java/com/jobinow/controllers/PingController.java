@@ -1,7 +1,7 @@
 package com.jobinow.controllers;
 
-import com.jobinow.model.entities.User;
 import com.jobinow.exceptions.ResourceNotFoundException;
+import com.jobinow.model.entities.User;
 import com.jobinow.model.enums.Role;
 import com.jobinow.security.JwtService;
 import com.jobinow.services.spec.UserService;

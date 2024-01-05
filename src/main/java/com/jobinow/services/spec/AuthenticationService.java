@@ -20,6 +20,9 @@ public interface AuthenticationService {
      * @return AuthenticationResponse containing access and refresh tokens
      */
     AuthenticationResponse register(RegisterRequest request);
+    AuthenticationResponse registerJobSeeker(RegisterRequest request);
+    AuthenticationResponse registerManager(RegisterRequest request);
+    AuthenticationResponse registerAgent(RegisterRequest request);
 
     /**
      * Authenticates a user and generates new access and refresh tokens.

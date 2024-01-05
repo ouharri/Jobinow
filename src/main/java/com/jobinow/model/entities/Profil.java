@@ -3,7 +3,10 @@ package com.jobinow.model.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotBlank;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
@@ -39,5 +42,5 @@ public class Profil extends AbstractEntity {
      * The list of job offers associated with the profile.
      */
     @ManyToMany
-    private List<Offre> offres = new ArrayList<>();
+    private List<Offer> Offers = new ArrayList<>();
 }

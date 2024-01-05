@@ -5,7 +5,10 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
@@ -102,7 +105,7 @@ public class Company extends AbstractEntity {
     @OneToMany(
             mappedBy = "company"
     )
-    private List<Offre> offres;
+    private List<Offer> Offers;
 
     /**
      * The set of resume PDF attachments associated with the company.

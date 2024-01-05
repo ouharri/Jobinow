@@ -1,6 +1,8 @@
 package com.jobinow.model.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +40,7 @@ public class Apply extends AbstractEntity {
      */
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private Offre offre;
+    private Offer Offer;
 
     /**
      * The set of resume attachments (PDFs) associated with the application.

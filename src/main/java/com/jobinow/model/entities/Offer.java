@@ -1,6 +1,6 @@
 package com.jobinow.model.entities;
 
-import com.jobinow.model.enums.OffreStatus;
+import com.jobinow.model.enums.OfferStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -30,7 +30,7 @@ import java.util.List;
 @SuperBuilder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Offre extends AbstractEntity {
+public class Offer extends AbstractEntity {
 
     /**
      * The title of the job offer.
@@ -67,7 +67,7 @@ public class Offre extends AbstractEntity {
      */
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
-    private OffreStatus status = OffreStatus.PENDING;
+    private OfferStatus status = OfferStatus.PENDING;
 
     /**
      * The list of profils associated with the job offer.
@@ -79,7 +79,7 @@ public class Offre extends AbstractEntity {
      * The company associated with the job offer.
      */
     @ManyToOne
-    @JoinTable(name = "company_offres")
+    @JoinTable(name = "company_Offers")
     private Company company;
 
     /**

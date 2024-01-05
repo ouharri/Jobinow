@@ -2,17 +2,17 @@ package com.jobinow.services.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jobinow.exceptions.ResourceNotFoundException;
-import com.jobinow.model.entities.Token;
-import com.jobinow.model.entities.User;
-import com.jobinow.security.JwtService;
-import com.jobinow.services.spec.AuthenticationService;
 import com.jobinow.model.dto.requests.AuthenticationRequest;
 import com.jobinow.model.dto.requests.RegisterRequest;
 import com.jobinow.model.dto.responses.AuthenticationResponse;
+import com.jobinow.model.entities.Token;
+import com.jobinow.model.entities.User;
 import com.jobinow.model.enums.Role;
 import com.jobinow.model.enums.TokenType;
 import com.jobinow.repositories.TokenRepository;
 import com.jobinow.repositories.UserRepository;
+import com.jobinow.security.JwtService;
+import com.jobinow.services.spec.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -50,13 +50,29 @@ public class AuthenticationServiceImp implements AuthenticationService {
      * @return AuthenticationResponse containing access and refresh tokens
      */
     public AuthenticationResponse register(RegisterRequest request) {
+        return this.createUser(request, Role.USER);
+    }
+
+    public AuthenticationResponse registerJobSeeker(RegisterRequest request) {
+        return this.createUser(request, Role.JOB_SEEKER);
+    }
+
+    public AuthenticationResponse registerManager(RegisterRequest request) {
+        return this.createUser(request, Role.MANAGER);
+    }
+
+    public AuthenticationResponse registerAgent(RegisterRequest request) {
+        return this.createUser(request, Role.AGENT);
+    }
+
+    private AuthenticationResponse createUser(RegisterRequest request, Role role) {
         var user = User.builder()
                 .firstname(request.firstname())
                 .lastname(request.lastname())
                 .email(request.email())
                 .password(passwordEncoder.encode(request.password()))
                 .build();
-        user.setRole(Role.USER);
+        user.setRole(role);
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);

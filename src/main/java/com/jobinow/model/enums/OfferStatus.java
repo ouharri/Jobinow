@@ -8,7 +8,7 @@ package com.jobinow.model.enums;
  * @author <a href="mailto:ouharri.outman@gmail.com">ouharri</a>
  * @version 1.0
  */
-public enum OffreStatus {
+public enum OfferStatus {
     /**
      * The job offer has been accepted.
      */
