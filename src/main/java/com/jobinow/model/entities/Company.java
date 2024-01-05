@@ -7,6 +7,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import org.hibernate.validator.constraints.URL;
 
 import java.util.ArrayList;
@@ -59,8 +61,16 @@ public class Company extends AbstractEntity {
     @Embedded
     private Address address = new Address();
 
+    /**
+     * The status of the company.
+     */
+    @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private CompanyStatus status = CompanyStatus.PENDING;
 
+    /**
+     * The list of verification codes associated with the company.
+     */
     @OneToMany(
             mappedBy = "company"
     )
@@ -94,6 +104,9 @@ public class Company extends AbstractEntity {
     )
     private List<Offre> offres;
 
+    /**
+     * The set of resume PDF attachments associated with the company.
+     */
     @OneToMany
     private Set<Attachment> resumePdfs;
 }
