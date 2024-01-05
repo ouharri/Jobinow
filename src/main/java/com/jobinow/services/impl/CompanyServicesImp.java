@@ -2,20 +2,19 @@ package com.jobinow.services.impl;
 
 import com.jobinow.events.CompanyCreatedEvent;
 import com.jobinow.exceptions.ResourceNotCreatedException;
-import com.jobinow.model.entities.Company;
-import com.jobinow.model.entities.VerificationCode;
-import com.jobinow.services.spec.CompanyServices;
-import com.jobinow.services.spec.VerificationCodeService;
 import com.jobinow.model.dto.requests.CompanyRequest;
 import com.jobinow.model.dto.requests.VerificationCodeRequest;
 import com.jobinow.model.dto.responses.CompanyResponse;
+import com.jobinow.model.entities.Company;
+import com.jobinow.model.entities.VerificationCode;
 import com.jobinow.model.enums.CompanyStatus;
 import com.jobinow.model.mapper.CompanyMapper;
 import com.jobinow.repositories.CompanyRepository;
+import com.jobinow.services.spec.CompanyServices;
+import com.jobinow.services.spec.VerificationCodeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

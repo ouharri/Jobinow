@@ -1,23 +1,19 @@
 package com.jobinow.services.impl;
 
 import com.jobinow.exceptions.ResourceNotFoundException;
-import com.jobinow.model.dto.requests.OfferRequest;
-import com.jobinow.model.dto.responses.OfferResponse;
 import com.jobinow.model.entities.*;
-import com.jobinow.model.mapper.OfferMapper;
 import com.jobinow.repositories.OfferRepository;
 import com.jobinow.services.spec.JobSeekerService;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
-import java.util.UUID;
 
 /**
  * Implementation of the {@link JobSeekerService} interface for job seeker-related operations.
  */
 
 @RequiredArgsConstructor
-public class jobSeekerServiceImpl extends _ServiceImp<UUID, OfferRequest, OfferResponse, Offer, OfferRepository, OfferMapper> implements JobSeekerService{
+public class jobSeekerServiceImpl implements JobSeekerService{
     private final OfferRepository OfferRepository;
 
     /**

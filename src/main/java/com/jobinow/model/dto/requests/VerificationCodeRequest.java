@@ -1,7 +1,7 @@
 package com.jobinow.model.dto.requests;
 
-import com.jobinow.model.entities.VerificationCode;
 import com.jobinow.model.dto.responses.CompanyResponse;
+import com.jobinow.model.entities.VerificationCode;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 

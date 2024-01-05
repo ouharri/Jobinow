@@ -1,9 +1,9 @@
 package com.jobinow.services.impl;
 
-import com.jobinow.model.entities.User;
-import com.jobinow.services.spec.UserService;
 import com.jobinow.model.dto.requests.ChangePasswordRequest;
+import com.jobinow.model.entities.User;
 import com.jobinow.repositories.UserRepository;
+import com.jobinow.services.spec.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

@@ -1,7 +1,7 @@
 package com.jobinow.services.spec;
 
-import com.jobinow.model.entities.User;
 import com.jobinow.model.dto.requests.ChangePasswordRequest;
+import com.jobinow.model.entities.User;
 
 import java.security.Principal;
 import java.util.List;
