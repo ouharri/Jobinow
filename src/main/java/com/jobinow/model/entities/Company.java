@@ -77,8 +77,13 @@ public class Company extends AbstractEntity {
     /**
      * The manager associated with the company.
      */
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "manager_id", referencedColumnName = "id")
+    @OneToOne(
+            cascade = CascadeType.ALL
+    )
+    @JoinColumn(
+            name = "manager_id",
+            referencedColumnName = "id"
+    )
     private User manager;
 
     /**
