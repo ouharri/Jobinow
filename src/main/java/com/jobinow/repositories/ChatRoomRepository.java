@@ -1,6 +1,7 @@
 package com.jobinow.repositories;
 
 import com.jobinow.model.entities.ChatRoom;
+import com.jobinow.model.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
@@ -23,5 +24,13 @@ public interface ChatRoomRepository extends JpaRepository<ChatRoom, UUID> {
      * @param recipientId The ID of the recipient.
      * @return An optional containing the chat room, or empty if not found.
      */
-    Optional<ChatRoom> findBySenderIdAndRecipientId(String senderId, String recipientId);
+    Optional<ChatRoom> findBySenderAndRecipient(User sender, User recipient);
+
+    /**
+     * Finds chat messages by the specified chat ID.
+     *
+     * @param chatId The chat ID to find messages for.
+     * @return A list of chat messages for the given chat ID.
+     */
+    Optional<ChatRoom> findBySender_IdAndRecipient_Id(UUID senderId, UUID recipientId);
 }
