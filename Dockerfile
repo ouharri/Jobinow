@@ -6,6 +6,6 @@ RUN mvn clean install -DskipTests
 
 FROM openjdk:21
 WORKDIR /app
-COPY --from=build app/target/Jobinow-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build app/target/jobinow-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8083
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
