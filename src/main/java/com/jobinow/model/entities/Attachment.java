@@ -27,7 +27,7 @@ public class Attachment extends AbstractEntity {
      * The URL to the cover letter attachment.
      */
     @URL(message = "Attachment URL must be valid")
-    private String letter;
+    private String attachmentUrl;
 
     /**
      * The job application to which the attachment belongs.
