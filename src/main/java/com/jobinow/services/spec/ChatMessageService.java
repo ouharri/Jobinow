@@ -3,6 +3,7 @@ package com.jobinow.services.spec;
 import com.jobinow.model.entities.ChatMessage;
 
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Service interface for managing chat messages.
@@ -29,5 +30,5 @@ public interface ChatMessageService {
      * @param recipientId The ID of the recipient.
      * @return A list of chat messages between the sender and recipient.
      */
-    List<ChatMessage> findChatMessages(String senderId, String recipientId);
+    List<ChatMessage> findChatMessages(UUID senderId, UUID recipientId);
 }
