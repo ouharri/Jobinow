@@ -1,7 +1,7 @@
 services:
-  database:
+  jobinow-db:
     image: 'postgres:latest'
-    container_name: database
+    container_name: jobinow-db
     environment:
       - POSTGRES_DB=Jobinow
       - POSTGRES_PASSWORD=Youcode@2023
@@ -9,7 +9,7 @@ services:
       - PGDATA=/data/postgres
     restart: always
     ports:
-      - "5433"
+      - "5432"
     volumes:
       - type: volume
         source: postgres-db
@@ -25,7 +25,7 @@ services:
     ports:
       - "8084:8083"
     depends_on:
-      - database
+      - jobinow-db
     restart: no
     networks:
       - jobinow
