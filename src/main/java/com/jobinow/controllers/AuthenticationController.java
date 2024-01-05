@@ -88,17 +88,6 @@ public class AuthenticationController {
         return ResponseEntity.ok(service.registerAgent(request));
     }
 
-    @PostMapping("/register/recruiter")
-    public ResponseEntity<AuthenticationResponse> registerRecruiter(
-            @Valid @RequestBody final RegisterRequest request,
-            BindingResult bindingResult
-    ) {
-        if (bindingResult.hasErrors())
-            throw new ResourceNotCreatedException(bindingResult);
-
-        return ResponseEntity.ok(service.registerAgent(request));
-    }
-
     /**
      * Endpoint for user authentication.
      *
