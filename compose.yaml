@@ -1,5 +1,5 @@
 services:
-  postgres:
+  database:
     image: 'postgres:latest'
     container_name: database
     environment:
@@ -9,7 +9,7 @@ services:
       - PGDATA=/data/postgres
     restart: always
     ports:
-      - "5432:5432"
+      - "5432"
     volumes:
       - type: volume
         source: postgres-db
@@ -17,7 +17,7 @@ services:
     networks:
       - aftas
 
-  app:
+  api:
     container_name: aftas
     build:
       context: .
@@ -25,7 +25,7 @@ services:
     ports:
       - "8083:8084"
     depends_on:
-      - postgres
+      - database
     restart: no
     networks:
       - aftas
@@ -39,7 +39,6 @@ networks:
     ipam:
       config:
         - subnet: 2001:0DB8::/112
-
 
 volumes:
   postgres-db:
