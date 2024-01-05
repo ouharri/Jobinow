@@ -4,10 +4,11 @@ import com.jobinow.model.entities.User;
 import com.jobinow.model.enums.Role;
 import com.jobinow.model.enums.UserStatus;
 import io.micrometer.common.lang.NonNullApi;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -40,12 +41,28 @@ public interface UserRepository extends JpaRepository<User, UUID> {
     Optional<User> findById(UUID id);
 
     /**
-     * Finds all users with a specific status.
+     * Retrieves a page of all users.
      *
-     * @param status The status of the users to retrieve.
-     * @return A list of users with the specified status.
+     * @param pageable Pageable object for pagination.
+     * @return A page containing all users.
      */
-    List<User> findAllByStatus(UserStatus status);
+    Page<User> findAll(Pageable pageable);
 
-    List<User> findAllByRole(Role status);
+    /**
+     * Retrieves a page of users with a specific status.
+     *
+     * @param status   The status of the users to retrieve.
+     * @param pageable Pageable object for pagination.
+     * @return A page of users with the specified status.
+     */
+    Page<User> findAllByStatus(UserStatus status, Pageable pageable);
+
+    /**
+     * Retrieves a page of users with a specific role.
+     *
+     * @param role     The role of the users to retrieve.
+     * @param pageable Pageable object for pagination.
+     * @return A page of users with the specified role.
+     */
+    Page<User> findAllByRole(Role role, Pageable pageable);
 }
