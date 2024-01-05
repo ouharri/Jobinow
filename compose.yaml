@@ -9,16 +9,16 @@ services:
       - PGDATA=/data/postgres
     restart: always
     ports:
-      - "5432"
+      - "5433"
     volumes:
       - type: volume
         source: postgres-db
         target: /var/lib/postgresql/data
     networks:
-      - aftas
+      - jobinow
 
   api:
-    container_name: aftas
+    container_name: jobinow
     build:
       context: .
       dockerfile: Dockerfile
@@ -28,12 +28,12 @@ services:
       - database
     restart: no
     networks:
-      - aftas
+      - jobinow
 
 networks:
-  aftas:
+  jobinow:
     attachable: true
-    name: aftas
+    name: jobinow
     driver: bridge
     enable_ipv6: true
     ipam:
