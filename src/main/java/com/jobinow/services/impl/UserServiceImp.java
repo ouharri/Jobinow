@@ -1,25 +1,31 @@
 package com.jobinow.services.impl;
 
 import com.jobinow.model.dto.requests.ChangePasswordRequest;
+import com.jobinow.model.dto.responses.UserResponses;
 import com.jobinow.model.entities.User;
 import com.jobinow.model.enums.Role;
 import com.jobinow.model.enums.UserStatus;
+import com.jobinow.model.mapper.UserMapper;
 import com.jobinow.repositories.UserRepository;
 import com.jobinow.services.spec.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.security.Principal;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 /**
  * Service class for managing user-related operations.
+ *
+ * <p>This service class provides methods for retrieving user data based on various criteria,
+ * updating user information, and handling user status changes.</p>
  *
  * @author Ouharri Outman
  * @version 1.0
@@ -30,29 +36,51 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class UserServiceImp implements UserService {
     private final UserRepository repository;
+    private final UserMapper mapper;
     private final PasswordEncoder passwordEncoder;
 
     /**
-     * Retrieves a list of all users.
+     * Retrieves a paginated list of all users.
      *
-     * @return List of all users.
+     * @param pageable The pagination information.
+     * @return A paginated list of all users.
      */
-    public List<User> getAllUsers() {
-        return repository.findAll();
+    public Page<UserResponses> getAllUsers(Pageable pageable) {
+        return repository.findAll(pageable).map(mapper::toResponse);
     }
 
-    public List<User> getAllManager() {
-        return repository.findAllByRole(Role.MANAGER);
+    /**
+     * Retrieves a paginated list of manager users.
+     *
+     * @param pageable The pagination information.
+     * @return A paginated list of manager users.
+     */
+    public Page<UserResponses> getAllManager(Pageable pageable) {
+        return repository.findAllByRole(Role.MANAGER, pageable)
+                .map(mapper::toResponse);
     }
 
-    public List<User> getAllAgent() {
-        return repository.findAllByRole(Role.AGENT);
+    /**
+     * Retrieves a paginated list of agent users.
+     *
+     * @param pageable The pagination information.
+     * @return A paginated list of agent users.
+     */
+    public Page<UserResponses> getAllAgent(Pageable pageable) {
+        return repository.findAllByRole(Role.AGENT, pageable)
+                .map(mapper::toResponse);
     }
 
-    public List<User> getAllJobSeeker() {
-        return repository.findAllByRole(Role.JOB_SEEKER);
+    /**
+     * Retrieves a paginated list of job seeker users.
+     *
+     * @param pageable The pagination information.
+     * @return A paginated list of job seeker users.
+     */
+    public Page<UserResponses> getAllJobSeeker(Pageable pageable) {
+        return repository.findAllByRole(Role.JOB_SEEKER, pageable)
+                .map(mapper::toResponse);
     }
-
 
     /**
      * Retrieves a user by email.
@@ -111,9 +139,12 @@ public class UserServiceImp implements UserService {
     }
 
     /**
-     * find all connected users.
+     * Retrieves a paginated list of connected users.
+     *
+     * @param pageable The pagination information.
+     * @return A paginated list of connected users.
      */
-    public List<User> findConnectedUsers() {
-        return repository.findAllByStatus(UserStatus.ONLINE);
+    public Page<UserResponses> findConnectedUsers(Pageable pageable) {
+        return repository.findAllByStatus(UserStatus.ONLINE, pageable).map(mapper::toResponse);
     }
 }
