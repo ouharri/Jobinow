@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Service implementation for managing chat messages.
@@ -34,8 +35,13 @@ public class ChatMessageServiceImpl implements ChatMessageService {
      */
     public ChatMessage save(ChatMessage chatMessage) {
         var chatId = chatRoomService
-                .getChatRoomId(chatMessage.getSenderId(), chatMessage.getRecipientId(), true)
+                .getChatRoomId(
+                        chatMessage.getSender(),
+                        chatMessage.getRecipient(),
+                        true
+                )
                 .orElseThrow();
+
         chatMessage.setChatId(chatId);
         repository.save(chatMessage);
         return chatMessage;
@@ -48,8 +54,12 @@ public class ChatMessageServiceImpl implements ChatMessageService {
      * @param recipientId The ID of the recipient.
      * @return A list of chat messages between the specified users.
      */
-    public List<ChatMessage> findChatMessages(String senderId, String recipientId) {
-        var chatId = chatRoomService.getChatRoomId(senderId, recipientId, false);
+    public List<ChatMessage> findChatMessages(UUID senderId, UUID recipientId) {
+        var chatId = chatRoomService.getChatRoomId(
+                senderId,
+                recipientId,
+                false
+        );
         return chatId.map(repository::findByChatId).orElse(new ArrayList<>());
     }
 }
