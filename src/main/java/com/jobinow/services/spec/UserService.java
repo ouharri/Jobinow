@@ -28,6 +28,11 @@ public interface UserService {
      */
     List<User> getAllUsers();
 
+    List<User> getAllManager();
+
+    List<User> getAllAgent();
+
+    List<User> getAllJobSeeker();
     /**
      * Changes the password for the user identified by the connected user principal.
      *
