@@ -8,10 +8,10 @@ logging:
 spring:
   docker:
     compose:
-      enabled: false
+      enabled: true
       file: compose.yaml
   datasource:
-    url: jdbc:postgresql://localhost:5432/Jobinow?serverTimezone=UTC+01:00
+    url: jdbc:postgresql://jobinow-db:5432/Jobinow
     username: postgres
     password: Youcode@2023
     driver-class-name: org.postgresql.Driver
@@ -19,7 +19,7 @@ spring:
     change-log: classpath:db/db.changelog-master.yaml
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
@@ -43,8 +43,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username:
-    password:
+    username: fadwacherqui2@gmail.com
+    password: cmup wxrx rusq tapz
     properties:
       mail:
         smtp:
@@ -57,6 +57,6 @@ application:
   security:
     jwt:
       secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
-      expiration: 86400000 # a day
+      expiration: 86400000
       refresh-token:
-        expiration: 604800000 # 7 days
+        expiration: 604800000
