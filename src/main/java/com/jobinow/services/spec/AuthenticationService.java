@@ -23,6 +23,7 @@ public interface AuthenticationService {
     AuthenticationResponse registerJobSeeker(RegisterRequest request);
     AuthenticationResponse registerManager(RegisterRequest request);
     AuthenticationResponse registerAgent(RegisterRequest request);
+    AuthenticationResponse registerRecruiter(RegisterRequest request);
 
     /**
      * Authenticates a user and generates new access and refresh tokens.

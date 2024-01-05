@@ -65,6 +65,10 @@ public class AuthenticationServiceImp implements AuthenticationService {
         return this.createUser(request, Role.AGENT);
     }
 
+    public AuthenticationResponse registerRecruiter(RegisterRequest request) {
+        return this.createUser(request, Role.RECRUITER);
+    }
+
     private AuthenticationResponse createUser(RegisterRequest request, Role role) {
         var user = User.builder()
                 .firstname(request.firstname())
