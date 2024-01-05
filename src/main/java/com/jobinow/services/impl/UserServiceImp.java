@@ -1,10 +1,9 @@
 package com.jobinow.services.impl;
 
-import com.jobinow.model.entities.User;
-import com.jobinow.model.enums.UserStatus;
-import com.jobinow.services.spec.UserService;
 import com.jobinow.model.dto.requests.ChangePasswordRequest;
 import com.jobinow.model.entities.User;
+import com.jobinow.model.enums.Role;
+import com.jobinow.model.enums.UserStatus;
 import com.jobinow.repositories.UserRepository;
 import com.jobinow.services.spec.UserService;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +40,19 @@ public class UserServiceImp implements UserService {
     public List<User> getAllUsers() {
         return repository.findAll();
     }
+
+    public List<User> getAllManager() {
+        return repository.findAllByRole(Role.MANAGER);
+    }
+
+    public List<User> getAllAgent() {
+        return repository.findAllByRole(Role.AGENT);
+    }
+
+    public List<User> getAllJobSeeker() {
+        return repository.findAllByRole(Role.JOB_SEEKER);
+    }
+
 
     /**
      * Retrieves a user by email.
