@@ -9,10 +9,10 @@
         <relativePath/>
     </parent>
     <groupId>com.ouharri</groupId>
-    <artifactId>Jobinow</artifactId>
+    <artifactId>jobinow</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Jobinow</name>
-    <description>Jobinow</description>
+    <name>jobinow</name>
+    <description>jobinow</description>
     <properties>
         <java.version>21</java.version>
         <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
