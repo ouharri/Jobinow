@@ -1,6 +1,7 @@
 package com.jobinow.repositories;
 
 import com.jobinow.model.entities.User;
+import com.jobinow.model.enums.Role;
 import com.jobinow.model.enums.UserStatus;
 import io.micrometer.common.lang.NonNullApi;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -45,4 +46,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
      * @return A list of users with the specified status.
      */
     List<User> findAllByStatus(UserStatus status);
+
+    List<User> findAllByRole(Role status);
 }
