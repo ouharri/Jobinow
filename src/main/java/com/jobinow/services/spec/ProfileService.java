@@ -5,5 +5,5 @@ import com.jobinow.model.dto.responses.ProfilResponse;
 
 import java.util.UUID;
 
-public interface ProfilService extends _Service<UUID, ProfilRequest, ProfilResponse> {
+public interface ProfileService extends _Service<UUID, ProfilRequest, ProfilResponse> {
 }
