@@ -12,6 +12,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+/**
+ * Service implementation for handling operations related to user profiles.
+ * This service extends the generic service implementation {@link _ServiceImp}
+ * and is specific to the {@link Profil} entity, providing methods for managing profiles.
+* */
 @Slf4j
 @Service
 @RequiredArgsConstructor
