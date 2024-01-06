@@ -28,7 +28,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 
 /**
- * Service class for user authentication and token management.
+ * Implementation of the Service class {@link AuthenticationService} for user authentication and token management.
  * This service provides methods to register a new user, authenticate a user, and refresh access tokens.
  *
  * @author <a href="mailto:ouharrioutman@gmail.com">ouharri outman</a>
@@ -50,22 +50,49 @@ public class AuthenticationServiceImp implements AuthenticationService {
      * @return AuthenticationResponse containing access and refresh tokens
      */
     public AuthenticationResponse register(RegisterRequest request) {
-        return this.createUser(request, Role.USER);
+        return createUser(request, Role.USER);
     }
 
+    /**
+     * Registers a new job seeker and generates access and refresh tokens.
+     *
+     * @param request Registration request containing job seeker details
+     * @return AuthenticationResponse containing access and refresh tokens
+     */
     public AuthenticationResponse registerJobSeeker(RegisterRequest request) {
         return this.createUser(request, Role.JOB_SEEKER);
     }
 
+    /**
+     * Registers a new manager and generates access and refresh tokens.
+     *
+     * @param request Registration request containing manager details
+     * @return AuthenticationResponse containing access and refresh tokens
+     */
     public AuthenticationResponse registerManager(RegisterRequest request) {
         return this.createUser(request, Role.MANAGER);
     }
 
+    /**
+     * Registers a new agent and generates access and refresh tokens.
+     *
+     * @param request Registration request containing agent details
+     * @return AuthenticationResponse containing access and refresh tokens
+     */
     public AuthenticationResponse registerAgent(RegisterRequest request) {
         return this.createUser(request, Role.AGENT);
     }
 
+    /**
+     * Creates a new user, saves it to the database, and generates access and refresh tokens.
+     *
+     * @param request Registration request containing user details
+     * @param role    Role of the user to be created
+     * @return AuthenticationResponse containing access and refresh tokens for the newly created user
+     */
     private AuthenticationResponse createUser(RegisterRequest request, Role role) {
+        log.info("Creating a new user with role: {}", role);
+
         var user = User.builder()
                 .firstname(request.firstname())
                 .lastname(request.lastname())
@@ -73,15 +100,22 @@ public class AuthenticationServiceImp implements AuthenticationService {
                 .password(passwordEncoder.encode(request.password()))
                 .build();
         user.setRole(role);
+
         var savedUser = repository.save(user);
+        log.info("User with ID {} created successfully.", savedUser.getId());
+
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
+
         saveUserToken(savedUser, jwtToken);
+        log.info("Access and refresh tokens generated and saved for user with ID: {}", savedUser.getId());
+
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
                 .build();
     }
+
 
     /**
      * Authenticates a user and generates new access and refresh tokens.
@@ -98,14 +132,14 @@ public class AuthenticationServiceImp implements AuthenticationService {
                     )
             );
         } catch (BadCredentialsException ex) {
-            log.error("Authentication failed for user: " + request.email(), ex);
+            log.error("Authentication failed for user: {}", request.email(), ex);
             throw new BadCredentialsException("Invalid credentials");
         } catch (AuthenticationException ex) {
-            log.error("Authentication failed for user: " + request.email(), ex);
+            log.error("Authentication failed for user: {}", request.email(), ex);
             throw new ResourceNotFoundException("Authentication failed");
         }
         var user = repository.findByEmail(request.email())
-                .orElseThrow();
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
@@ -140,13 +174,13 @@ public class AuthenticationServiceImp implements AuthenticationService {
      */
     private void revokeAllUserTokens(User user) {
         var validUserTokens = tokenRepository.findAllValidTokenByUser(user.getId());
-        if (validUserTokens.isEmpty())
-            return;
-        validUserTokens.forEach(token -> {
-            token.setExpired(true);
-            token.setRevoked(true);
-        });
-        tokenRepository.saveAll(validUserTokens);
+        if (!validUserTokens.isEmpty()) {
+            validUserTokens.forEach(token -> {
+                token.setExpired(true);
+                token.setRevoked(true);
+            });
+            tokenRepository.saveAll(validUserTokens);
+        }
     }
 
     /**
@@ -170,7 +204,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
         userEmail = jwtService.extractUsername(refreshToken);
         if (userEmail != null) {
             var user = this.repository.findByEmail(userEmail)
-                    .orElseThrow();
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
             if (jwtService.isTokenValid(refreshToken, user)) {
                 var accessToken = jwtService.generateToken(user);
                 revokeAllUserTokens(user);
@@ -198,7 +232,7 @@ public class AuthenticationServiceImp implements AuthenticationService {
         var userEmail = jwtService.extractUsername(jwt);
         if (userEmail != null) {
             var user = this.repository.findByEmail(userEmail)
-                    .orElseThrow();
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
             return jwtService.isTokenValid(jwt, user);
         }
         return false;
