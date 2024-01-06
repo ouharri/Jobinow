@@ -20,8 +20,29 @@ public interface AuthenticationService {
      * @return AuthenticationResponse containing access and refresh tokens
      */
     AuthenticationResponse register(RegisterRequest request);
+
+    /**
+     * Registers a job seeker user and generates access and refresh tokens.
+     *
+     * @param request Registration request containing user details
+     * @return AuthenticationResponse containing access and refresh tokens
+     */
     AuthenticationResponse registerJobSeeker(RegisterRequest request);
+
+    /**
+     * Registers a manager user and generates access and refresh tokens.
+     *
+     * @param request Registration request containing user details
+     * @return AuthenticationResponse containing access and refresh tokens
+     */
     AuthenticationResponse registerManager(RegisterRequest request);
+
+    /**
+     * Registers an agent user and generates access and refresh tokens.
+     *
+     * @param request Registration request containing user details
+     * @return AuthenticationResponse containing access and refresh tokens
+     */
     AuthenticationResponse registerAgent(RegisterRequest request);
 
     /**
@@ -49,4 +70,3 @@ public interface AuthenticationService {
      */
     Boolean checkToken(String token);
 }
-
