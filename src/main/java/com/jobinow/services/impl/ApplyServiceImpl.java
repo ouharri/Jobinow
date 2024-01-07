@@ -19,5 +19,4 @@ import java.util.UUID;
  */
 @Service
 public class ApplyServiceImpl extends _ServiceImp<UUID, ApplyRequest, ApplyResponse, Apply, ApplyRepository, ApplyMapper> implements ApplyService {
-
 }
