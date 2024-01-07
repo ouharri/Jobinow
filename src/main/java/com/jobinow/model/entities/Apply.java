@@ -1,15 +1,16 @@
 package com.jobinow.model.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import com.jobinow.model.enums.ApplyType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.type.SqlTypes;
 
 import java.util.Set;
 
@@ -41,6 +42,13 @@ public class Apply extends AbstractEntity {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Offer Offer;
+
+    /**
+     * The type of application (online or offline ...).
+     */
+    @Enumerated(EnumType.STRING)
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    private ApplyType applyType;
 
     /**
      * The set of resume attachments (PDFs) associated with the application.
