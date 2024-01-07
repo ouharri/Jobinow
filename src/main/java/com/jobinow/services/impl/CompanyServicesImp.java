@@ -22,6 +22,26 @@ import java.security.SecureRandom;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Service implementation class for managing companies.
+ * This service provides methods for creating, validating, and handling operations related to {@link Company}.
+ * It extends the generic service implementation ({@link _ServiceImp}) and implements custom methods for
+ * pre-creating and validating companies, including the generation and handling of verification codes.
+ * <p>
+ * The class uses the {@link CompanyMapper} for mapping between entities and DTOs.
+ * </p>
+ *
+ * @author  <a href="mailto:ouharrioutman@gmail.com">ouharri outman</a>
+ * @version 1.0
+ * @see _ServiceImp
+ * @see Company
+ * @see CompanyRequest
+ * @see CompanyResponse
+ * @see CompanyMapper
+ * @see VerificationCodeService
+ * @see VerificationCode
+ * @see CompanyCreatedEvent
+ */
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -30,6 +50,14 @@ public class CompanyServicesImp extends _ServiceImp<UUID, CompanyRequest, Compan
     private final ApplicationEventPublisher eventPublisher;
     private final VerificationCodeService verificationCodeService;
 
+    /**
+     * Attempts to pre-create a company by saving it to the repository, generating a verification code,
+     * and publishing a {@link CompanyCreatedEvent}. If successful, returns the created company as a response.
+     *
+     * @param req The company request containing details for pre-creating the company.
+     * @return An optional containing the created company response, or empty if the operation fails.
+     * @throws ResourceNotCreatedException If an error occurs during the creation process.
+     */
     @Transactional
     public Optional<CompanyResponse> preCreateCompany(CompanyRequest req) {
         Company companyToSave = mapper.toEntityFromRequest(req);
@@ -49,6 +77,13 @@ public class CompanyServicesImp extends _ServiceImp<UUID, CompanyRequest, Compan
         }
     }
 
+    /**
+     * Validates a company by checking the provided verification code.
+     * If the code is valid, updates the company status to APPROVED and returns the response.
+     *
+     * @param req The verification code request containing the company and verification code.
+     * @return An optional containing the validated company response, or empty if validation fails.
+     */
     public Optional<CompanyResponse> ValidateCompany(VerificationCodeRequest req) {
         if (verificationCodeService.isValidVerificationCode(req)) {
             Company companyToSave = mapper.toEntityFromResponse(req.company());
@@ -57,12 +92,5 @@ public class CompanyServicesImp extends _ServiceImp<UUID, CompanyRequest, Compan
             return Optional.of(mapper.toResponse(createdCompany));
         }
         return Optional.empty();
-    }
-
-    private static int generateRandomCode() {
-        SecureRandom random = new SecureRandom();
-        int min = (int) Math.pow(10, 6 - 1);
-        int max = (int) Math.pow(10, 6) - 1;
-        return min + random.nextInt(max - min + 1);
     }
 }
