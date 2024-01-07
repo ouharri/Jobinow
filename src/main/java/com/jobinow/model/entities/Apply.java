@@ -48,7 +48,7 @@ public class Apply extends AbstractEntity {
      */
     @Enumerated(EnumType.STRING)
     @JdbcTypeCode(SqlTypes.NAMED_ENUM)
-    private ApplyType applyType;
+    private ApplyType applyType = ApplyType.OFFLINE;
 
     /**
      * The set of resume attachments (PDFs) associated with the application.
