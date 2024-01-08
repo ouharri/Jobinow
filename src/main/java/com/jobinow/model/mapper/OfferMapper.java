@@ -3,11 +3,9 @@ package com.jobinow.model.mapper;
 import com.jobinow.model.dto.requests.OfferRequest;
 import com.jobinow.model.dto.responses.OfferResponse;
 import com.jobinow.model.entities.Offer;
-import org.mapstruct.InjectionStrategy;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
+import java.lang.annotation.Target;
 import java.util.UUID;
 
 /**
@@ -20,4 +18,7 @@ import java.util.UUID;
         componentModel = MappingConstants.ComponentModel.SPRING
 )
 public interface OfferMapper extends _Mapper<UUID, OfferRequest, OfferResponse, Offer> {
+    @Override
+    @Mapping(target = "recruiter", source = "recruiter")
+    Offer toEntityFromRequest(OfferRequest request);
 }
